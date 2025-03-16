@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,5 +90,22 @@ public class LoginController {
     @GetMapping("/validateJwt")
     public ResponseEntity<String> validateJwtToken(){
         return ResponseEntity.ok("jwt validated");
+    }
+
+    @PostMapping("/logoutUser")
+    public ResponseEntity<?> logoutUser(HttpServletResponse response) {
+        // Create an empty cookie with the same name and set it to expire immediately
+        log.debug("Entered inside logout api");
+        ResponseCookie cookie = ResponseCookie.from("jwt", "") // Cookie name
+                .httpOnly(true)
+                .secure(false) // Set to true if using HTTPS
+                .path("/")
+                .maxAge(0) // Expire the cookie immediately
+                .build();
+
+        // Add the cookie to the response
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return ResponseEntity.ok().body("Logged out successfully");
     }
 }
