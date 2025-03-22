@@ -88,7 +88,7 @@ public class SecurityConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**") // Allow all API endpoints
-						.allowedOrigins("http://localhost:5173","http://192.168.29.107:5173/","http://localhost") // Allow frontend origin
+						.allowedOrigins("http://localhost:5173","http://192.168.29.107:5173/","http://localhost","https://reacttodo-list-m23c.onrender.com") // Allow frontend origin
 						.allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed methods
 						.allowedHeaders("*") // Allow all headers
 						.allowCredentials(true); // Allow cookies if needed
