@@ -98,9 +98,10 @@ public class LoginController {
         log.debug("Entered inside logout api");
         ResponseCookie cookie = ResponseCookie.from("jwt", "") // Cookie name
                 .httpOnly(true)
-                .secure(false) // Set to true if using HTTPS
+                .secure(true) // Set to true if using HTTPS
                 .path("/")
-                .maxAge(0) // Expire the cookie immediately
+                .maxAge(7 * 24 * 60 * 60) // Expire the cookie immediately
+                .sameSite("None")
                 .build();
 
         // Add the cookie to the response
