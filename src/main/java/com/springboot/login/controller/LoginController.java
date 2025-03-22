@@ -77,9 +77,9 @@ public class LoginController {
 
         Cookie jwtCookie = new Cookie("jwt", jwtToken);
         jwtCookie.setHttpOnly(true);  // Secure, prevents JavaScript access
-        jwtCookie.setSecure(false);   // Set to `true` if using HTTPS
+        jwtCookie.setSecure(true);   // Set to `true` if using HTTPS
         jwtCookie.setPath("/");
-        jwtCookie.setAttribute("SameSite", "Lax"); // Allow cross-origin requests// Available for all endpoints
+        jwtCookie.setAttribute("SameSite", "None"); // Allow cross-origin requests// Available for all endpoints
         jwtCookie.setMaxAge(60 * 60); // Expires in 1 hour
         // Add cookie to response
         response.addCookie(jwtCookie);
@@ -100,7 +100,7 @@ public class LoginController {
                 .httpOnly(true)
                 .secure(true) // Set to true if using HTTPS
                 .path("/")
-                .maxAge(7 * 24 * 60 * 60) // Expire the cookie immediately
+                .maxAge(0) // Expire the cookie immediately
                 .sameSite("None")
                 .build();
 
