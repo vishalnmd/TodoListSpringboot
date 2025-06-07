@@ -1,6 +1,7 @@
 package com.springboot.login.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +28,10 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+
+	@Value("${frontend-url}")
+	private String frontendUrl;
+
 	@Autowired
 	private MyUserDetailService userDetailsService;
 	
@@ -88,7 +92,7 @@ public class SecurityConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**") // Allow all API endpoints
-						.allowedOrigins("http://localhost:5173","http://192.168.29.107:5173/","http://localhost","https://reacttodo-list-m23c.onrender.com","https://reacttodo-list-m23c.onrender.com/#") // Allow frontend origin
+						.allowedOrigins("http://localhost:5173","http://192.168.29.107:5173/","http://localhost","https://reacttodo-list-m23c.onrender.com","https://reacttodo-list-m23c.onrender.com/#",frontendUrl) // Allow frontend origin
 						.allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed methods
 						.allowedHeaders("*") // Allow all headers
 						.allowCredentials(true); // Allow cookies if needed
